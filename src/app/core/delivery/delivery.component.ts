@@ -240,8 +240,8 @@ export class DeliveryComponent implements OnInit {
       } 
       //get the current user wallet balance
       this.apiService.getBalance().subscribe((res:any)=>{
-        !res.success ? this.userBalance = 0 : this.userBalance = res.userBalance;
-        this.isFunded = (res.userBalance > this.shippingFee || res.userBalance === this.shippingFee) ? true : false;
+        !res.success ? this.userBalance = 0 : this.userBalance = res.userBalance.balance;
+        this.isFunded = (res.userBalance.balance > this.shippingFee || res.userBalance.balance === this.shippingFee) ? true : false;
       })
       localStorage.setItem('user', JSON.stringify(res.authUser)); 
       this.step = 6;
