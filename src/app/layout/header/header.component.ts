@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+import { LoginComponent } from 'src/app/auth/login/login.component';
+import { DashboardComponent } from 'src/app/core/dashboard/dashboard.component';
 import { RequestFormComponent } from 'src/app/core/request-form/request-form.component';
 
 @Component({
@@ -8,21 +11,37 @@ import { RequestFormComponent } from 'src/app/core/request-form/request-form.com
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  dialogConfig= new MatDialogConfig();
+  dialogConfig: MatDialogConfig;
 
-  constructor(private dialog: MatDialog) { }
+  constructor(private dialog: MatDialog,private router:Router) { }
 
   ngOnInit(): void {
   }
 
-  getStarted(){
+  openDialog(){
 
-    this.dialogConfig.width = '60vw';
-    this.dialogConfig.height = '30vh';
+    this.dialogConfig = new MatDialogConfig();
 
+    // this.dialogConfig.position = { top: '0', right: '0' };
+     this.dialogConfig.minHeight = '100vh';
+     this.dialogConfig.minWidth = '100vw';
+    // this.dialogConfig.maxHeight = '40vh';
+    this.dialogConfig.disableClose = true;
+    this.dialogConfig.autoFocus = false;
 
     this.dialog.open(
-      RequestFormComponent, this.dialogConfig
-    )
-  }
+      LoginComponent,
+      this.dialogConfig
+    );
+
+  // this.dialog.open(RequestFormComponent,{
+  //   width: '250px',
+  //   height: '400px'
+  // })
+}
+
+test(){
+  this.router.navigate(['/dashboard']);
+}
+
 }

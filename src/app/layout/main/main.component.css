@@ -1,0 +1,13 @@
+.header-text{
+  font-family: Nunito;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 14px;
+}
+.wrapper-container{
+
+  display: flex;
+  justify-content: space-around;
+
+}

@@ -1,0 +1,8 @@
+.app{
+  width: 100%;
+  height: 100vh;
+  background-color:#F2E427;
+  ;
+  /*background-image: linear-gradient(rgba(5,0,136,0.5),rgba(5,0,136,0.5)), url(/src/assets/img/bg.png);*/
+  /*background-color: linear-gradient(#ebe7c2,#f5ed99)*/ ;
+} 

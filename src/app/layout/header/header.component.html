@@ -5,7 +5,7 @@
   <div class="col-lg-12">
   <nav class="navbar navbar-expand-lg">
   <a class="navbar-brand" href="#">
-  <img src="" alt="Logo" />
+  <img src="assets/img/radda.png" alt="Logo" />
   </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
   <span class="toggler-icon"></span>
@@ -14,23 +14,10 @@
   </button>
   <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
   <ul id="nav" class="navbar-nav ml-auto">
-  <li class="nav-item">
-  <a class="page-scroll" href="#home">Home</a>
-  </li>
-  <li class="nav-item">
-  <a class="page-scroll" href="#services">Services</a>
-  </li>
-  <li class="nav-item">
-  <a class="page-scroll" href="#about">About</a>
-  </li>
-  <li class="nav-item">
-  <a class="page-scroll" href="#how">How Radda deliver</a>
-  </li>
-  <li class="nav-item">
-  <a class="page-scroll" href="#testimonial">Testimonials</a>
-  </li>
+
+
   <li class="nav-item" >
-   <a (click)="getStarted()" class="main-btn btn-hover wow fadeInUp" style="color: #fff; width: 120px; border-radius: 20px;" >Get started</a>
+   <a class="main-btn btn-hover wow fadeInUp" style="color: #fff; width: 120px; border-radius: 20px;" (click)="openDialog()" >Sign in</a>
    </li>
   </ul>
   </div>
@@ -39,4 +26,6 @@
   </div>
   </div>
   </div>
+
   </header>
+

@@ -1,0 +1,490 @@
+<div class="container">
+  <!-- <app-dialog-header></app-dialog-header> -->
+  <div class="flex-btw">
+    <div></div>
+    <div class="flex-end">
+      <button mat-icon-button class="close-button-style" (click)="closed()">
+        <mat-icon>highlight_off</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <div class="flex-centerflex-center" *ngIf="delivery_medium">
+    <h1 style="font-size: 20px">Choose medium of delivery</h1>
+    <div style="margin-top: 20px" (click)="next1()">
+      <img src="assets/img/carbon3.png" alt="" />
+    </div>
+
+    <div style="margin-top: 20px">
+      <img src="assets/img/carbon1.png" alt="" />
+    </div>
+
+    <div style="margin-top: 20px; margin-bottom: 20px">
+      <img src="assets/img/carbon2.png" alt="" />
+    </div>
+  </div>
+
+  <div style="display: flex; justify-content: center">
+    <form [formGroup]="checkPhoneForm" class="form1">
+      <div *ngIf="locationdiv" class="divClass">
+        <div>
+          <div>
+            <label class="headertext"
+              >Enter Pick-up and delivery Location</label
+            >
+          </div>
+
+          <div>
+            <mat-form-field
+              appearance="outline"
+              style="display: block; margin-bottom: 50px"
+            >
+              <mat-label>Enter pick-up</mat-label>
+              <input
+                matInput
+                ngx-google-places-autocomplete
+                (onAddressChange)="handleAddressChange1($event)"
+              />
+              <mat-icon matSuffix> location_on</mat-icon>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" style="display: block">
+              <mat-label>Enter Delivery address here</mat-label>
+              <input
+                matInput
+                ngx-google-places-autocomplete
+                (onAddressChange)="handleAddressChanges2($event)"
+              />
+              <mat-icon matSuffix> location_on</mat-icon>
+            </mat-form-field>
+          </div>
+          <div class="flex">
+            <button
+              mat-raised-button
+              color="primary"
+              [class.spinner]="loadingBtn"
+              (click)="next2()"
+              [disabled]="loadingBtn"
+              style="
+                background: #c257f5;
+                border-radius: 8px;
+                width: 100%;
+                margin-top: 60px;
+              "
+            >
+              Continue
+            </button>
+          </div>
+          <!-- <div
+            style="
+              font-size: 14px;
+              font-weight: 600;
+              margin-top: 20px;
+              text-align: center;
+            "
+          >
+        </div> -->
+        </div>
+      </div>
+
+       <!--Picture...............-->
+
+       <div *ngIf="itemDetailsDiv" class="divClass">
+        <div style="display: flex; justify-content: center">
+          <h1 class="headertext">Item details</h1>
+          <!-- <h2>You earn a refund for late delivery when you set delivey time</h2> -->
+        </div>
+
+        <div>
+          <div style="display: flex">
+            <div style="width: 400px; margin-right: 30px">
+              <mat-form-field appearance="outline" style="display: block">
+                <mat-label>Enter item name here</mat-label>
+                <input matInput />
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" style="display: block">
+                <mat-label>Quantity</mat-label>
+                <input matInput />
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" style="display: block">
+                <mat-label>Enter brief decription of the item</mat-label>
+                <input matInput />
+              </mat-form-field>
+              <div class="flex">
+                <button
+                  mat-raised-button
+                  color="primary"
+                  [class.spinner]="loadingBtn"
+                  (click)="next4()"
+                  [disabled]="loadingBtn"
+                  style="
+                    background: #c257f5;
+                    border-radius: 8px;
+                    width: 400px;
+                    margin-top: 30px;
+                  "
+                >
+                  Continue
+                </button>
+              </div>
+            </div>
+
+            <div class="image-holder" (click)="files.click()">
+              <div style="position: relative">
+                <img
+                  style="width: 140px; height: 140px; position: absolute"
+                  [src]="imgFile"
+                  id="files"
+                />
+                <div style="position: absolute">
+                  <mat-icon
+                    style="font-size: 50px"
+                    *ngIf="imageIcon"
+                    (click)="files.click()"
+                    >add_a_photo</mat-icon
+                  >
+                </div>
+              </div>
+
+              <input
+                type="file"
+                #files
+                style="display: none"
+                (change)="onImageChange($event)"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!--Confirm sender......-->
+
+      <div *ngIf="pickup" class="divClass">
+        <div style="display: flex; justify-content: center">
+          <h1 class="headertext">Pick-up contact information</h1>
+        </div>
+
+        <div>
+          <mat-form-field
+            appearance="outline"
+            style="display: block; width: 500px"
+          >
+            <mat-label>Enter Merchant / Store Name</mat-label>
+            <input matInput />
+          </mat-form-field>
+
+          <mat-form-field
+            appearance="outline"
+            style="display: block; width: 500px"
+          >
+            <mat-label>Enter Merchant Phone number here</mat-label>
+            <input matInput />
+          </mat-form-field>
+
+          <div>
+            <p>Select the medium of transaction you have with merchant</p>
+
+            <div style="display: flex; justify-content: space-around">
+              <span>
+                <img src="assets/img/ig.png" />
+              </span>
+
+              <span><img src="assets/img/facebook.png" /></span>
+              <span><img src="assets/img/twitter.png" /></span>
+            </div>
+
+            <div style="margin-top: 20px">
+              <mat-form-field
+                appearance="outline"
+                style="display: block; width: 500px"
+              >
+                <mat-label>Enter facebook name</mat-label>
+                <input matInput />
+              </mat-form-field>
+              <div style="margin-bottom: 20px">
+                <mat-radio-button value=""
+                  >I already paid the merchant for item</mat-radio-button
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="flex-end">
+          <button
+            mat-raised-button
+            color="primary"
+            [class.spinner]="loadingBtn"
+            (click)="next5()"
+            [disabled]="loadingBtn"
+            style="background: #c257f5; border-radius: 8px; width: 100%"
+          >
+            Continue
+          </button>
+        </div>
+      </div>
+
+      <!-- Sender details -->
+
+      <div *ngIf="sender" class="divClass">
+        <div style="display: flex; justify-content: center">
+          <h1 class="headertext">Sender’s details you are buying from</h1>
+        </div>
+
+        <div>
+          <div [formGroup]="checkPhoneForm">
+            <div *ngIf="!phoneCheck">
+              <mat-form-field
+                appearance="outline"
+                style="display: block; width: 500px"
+              >
+                <mat-label>Enter your phone number</mat-label>
+                <input matInput formControlName="phone" />
+              </mat-form-field>
+
+              <div class="flex-end">
+                <button
+                  mat-raised-button
+                  color="primary"
+                  [class.spinner]="loadingBtn"
+                  (click)="checkPhone()"
+                  [disabled]="loadingBtn"
+                  style="background: #c257f5; border-radius: 8px; width: 100%"
+                >
+                  <span *ngIf="!loading">Continue</span>
+                  <span class="spinner-border" *ngIf="loading"></span>
+                </button>
+              </div>
+            </div>
+
+            <div *ngIf="phoneCheck">
+              <h3>Hoops! No record found</h3>
+              <h4>Kindly create an account to send request</h4>
+
+              <mat-form-field
+                appearance="outline"
+                style="display: block; width: 500px"
+              >
+                <mat-label>Enter Name here</mat-label>
+                <input matInput />
+              </mat-form-field>
+
+              <mat-form-field
+                appearance="outline"
+                style="display: block; width: 500px"
+              >
+                <mat-label>Enter Email here</mat-label>
+                <input matInput />
+              </mat-form-field>
+
+              <mat-form-field
+                appearance="outline"
+                style="display: block; width: 500px"
+              >
+                <mat-label>Enter password here</mat-label>
+                <input matInput />
+              </mat-form-field>
+
+              <div class="flex-end">
+                <button
+                  mat-raised-button
+                  color="primary"
+                  [class.spinner]="loadingBtn"
+                  (click)="summarynav()"
+
+                  [disabled]="loadingBtn"
+                  style="background: #c257f5; border-radius: 8px; width: 100%"
+                >
+                  Continue
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!----COST OF DELIVERY...........-->
+
+      <div *ngIf="summary" class="divClass">
+        <div><span class="headertext">Summary</span></div>
+        <div style="display: flex; margin-top: 160px; background: #faf8f8">
+          <!-- First......... -->
+
+          <div class="timerDiv" style="align-items: flex-start">
+            <div>
+              <span>
+                <mat-slide-toggle
+                  ><span
+                    style="
+                      text-align: center;
+                      font-size: smaller;
+                      font-weight: 500;
+                    "
+                    >Activate refund policy for late delivery</span
+                  ></mat-slide-toggle
+                ></span
+              >
+            </div>
+            <div style="display: flex">
+              <mat-form-field
+                appearance="outline"
+                style="width: 160px; margin-right: 20px"
+              >
+                <mat-label>Set delivery date</mat-label>
+                <input matInput [matDatepicker]="picker" />
+                <mat-datepicker-toggle
+                  matPrefix
+                  [for]="picker"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" style="width: 100px">
+                <mat-label>Set delivery time</mat-label>
+                <input matInput type="time" />
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div style="height: 100px; align-self: center; margin-right: 10px">
+            <div>
+              <span> What you order online is what you should see </span>
+            </div>
+            <div>
+              <span>
+                <mat-slide-toggle
+                  ><span
+                    style="
+                      text-align: center;
+                      font-size: smaller;
+                      font-weight: 500;
+                    "
+                    >Activate refund policy for late delivery</span
+                  ></mat-slide-toggle
+                ></span
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- Second......... -->
+        <div style="display: flex; justify-content: space-between">
+          <div>
+            <span style="padding: 20px; font-weight: 600"> Total Amount </span>
+          </div>
+
+          <div>
+            <span style="padding: 20px; font-weight: 600">
+              Get a refund for every minute of late delivery
+            </span>
+          </div>
+        </div>
+
+        <div class="flex">
+          <button
+            mat-raised-button
+            color="primary"
+            [class.spinner]="loadingBtn"
+
+            [disabled]="loadingBtn"
+            style="
+              background: #c257f5;
+              border-radius: 8px;
+              width: 50%;
+              margin-top: 20px;
+            "
+          >
+            Continue to payment
+          </button>
+        </div>
+      </div>
+
+      <!-- Checklist..... -->
+
+      <div *ngIf="checklist">
+        <div class="checklist">
+          <div>
+            <label class="headertext">Checklist</label>
+          </div>
+          <mat-form-field appearance="outline" >
+            <mat-label>Make a checklist</mat-label>
+            <textarea matInput
+                      cdkTextareaAutosize
+                      #autosize="cdkTextareaAutosize"
+                      cdkAutosizeMinRows="1"
+                      cdkAutosizeMaxRows="10"></textarea>
+          </mat-form-field>
+        </div>
+
+        <div class="flex-end">
+          <button
+            mat-raised-button
+            color="primary"
+            [class.spinner]="loadingBtn"
+            [disabled]="loadingBtn"
+            style="
+              background: #c257f5;
+              border-radius: 8px;
+              width: 100%;
+              margin-top: 50px;
+            "
+          >
+            Continue to payment
+          </button>
+        </div>
+      </div>
+
+
+      <!--FINAL SENDING PAGE......-->
+
+      <div *ngIf="payment" class="divClass">
+        <div>
+          <label class="headertext">Select Payment Channel</label>
+        </div>
+
+        <div>
+
+          <mat-radio-group aria-label="Select an option" style="line-height: 7" >
+            <div style="padding:20px">
+              <mat-radio-button value="1" class="paymentchoice">Pay with GTpay</mat-radio-button>
+            </div>
+
+            <div style="padding:20px">
+              <mat-radio-button value="2"
+              class="paymentchoice" >Fund wallet with paystack</mat-radio-button
+              >
+            </div>
+
+            <div style="padding:20px">
+              <mat-radio-button value="3"
+              class="paymentchoice" >Fund wallet with transfer</mat-radio-button
+              >
+            </div>
+          </mat-radio-group>
+        </div>
+        <div class="flex-end">
+          <button
+            mat-raised-button
+            color="primary"
+            [class.spinner]="loadingBtn"
+            [disabled]="loadingBtn"
+            style="
+              background: #c257f5;
+              border-radius: 8px;
+              width: 100%;
+              margin-top: 50px;
+            "
+          >
+            Continue
+          </button>
+        </div>
+      </div>
+
+
+
+    </form>
+  </div>
+</div>

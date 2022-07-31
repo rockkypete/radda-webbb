@@ -1,0 +1,197 @@
+<div class="container">
+  <img src="assets/img/radda.png"  class="logo" (click)="routeHome()"/>
+
+  <ng-container [ngSwitch]="step">
+
+    <div class="detail-box">
+      <!--route section-->
+      <div class="route-info" *ngSwitchCase="1">
+        <h2>Enter Pickup and Delivery Locations</h2>  
+        <div class="routes">
+          <form class="item-form" [formGroup]="routingForm">
+            <mat-form-field class="input-box">
+              <input type="text" matInput 
+                ngx-google-places-autocomplete
+                #pickup="ngx-places"
+                (onAddressChange)="formatPickupAddress($event)"
+                placeholder="Enter pickup" formControlName="pickupAddress"  required 
+              >
+              <mat-icon matSuffix>room</mat-icon>
+            </mat-form-field>   
+            <br/>         
+            <mat-form-field class="input-box">
+              <input type="text" matInput 
+                ngx-google-places-autocomplete
+                #dropoff="ngx-places"
+                (onAddressChange)="formatDeliveryAddress($event)"
+                placeholder="Enter delivery address here" formControlName="deliveryAddress"  required 
+              >
+              <mat-icon matSuffix>room</mat-icon>
+            </mat-form-field>
+          </form>        
+        </div>
+        <div class="vehicles">
+          <img src="/src/assets/img/carbon3.png" alt=""/>       
+        
+          <img src="/src/assets/img/carbon2.png" alt="">        
+        
+          <img src="/src/assets/img/carbon1.png" alt=""/>
+        </div>
+        <p class="shipping">{{shippingFee}}</p>
+        <div class="route-btn">
+          <button>Continue</button>
+        </div>
+    
+      </div>
+      
+      <!--delivery details-->
+      <div class="details" *ngSwitchCase="2">
+        <div class="order-section">
+          <h4 >Item Details</h4>
+          <div class="item-details">
+            <mat-form-field class="input-box">
+              <input  type="text" matInput placeholder="Enter item name" formControlName="title" required>
+            </mat-form-field>  
+            
+            <mat-form-field class="input-box">
+              <input  type="number" matInput placeholder="Quantity" formControlName="quantity" required>
+            </mat-form-field>       
+            
+            <div class="image-info">
+              <img [src]="imageFile" *ngIf="isFile" />
+              <mat-icon class="image-icon" (click)="files.click()">add</mat-icon>
+              Add Image
+              <input type="file" (change)="onImageChange($event)" #files style="display: none"/>
+            </div>            
+          </div>
+          <!--routes-->
+          <h4>Delivery Details</h4>        
+          <div class="location-details">            
+            <div class="address-box">
+              <p class="text-muted">From</p>  
+              <p>{{itemList[0].locations![0].pickupAddress }}</p>   
+            </div>
+            <div class="address-box">
+              <p class="text-muted">To</p>
+              <p>{{ itemList[0].locations![0].deliveryAddress}}</p>
+            </div>
+          </div>            
+          <button class="card-subtitle text-right" (click)="editLocation">Edit</button>
+                
+
+          <div class="contact-section">
+            <form [formGroup]="pickupContactForm">
+              <span class="text-muted">SenderPhone</span>
+              <mat-form-field class="input-box">
+                <input type="tel" matInput placeholder="Enter sender phone" formControlName="contactPhone" required>
+              </mat-form-field>
+            </form>
+            
+            <form [formGroup]="deliveryContactForm">
+              <span class="text-muted">Receiver Phone</span>
+              <mat-form-field class="input-box">
+                <input type="tel" matInput placeholder="Enter receiver phone" formControlName="contactPhone" required>
+              </mat-form-field>
+            </form>
+            <button class="location-btn" (click)="addItem()"><i class="bi bi-plus"></i>Add Item</button>
+          </div>
+        </div>
+        <!--summary-->
+        <div class="summary">
+          <h4>Summary</h4>
+          <div class="item">
+            <p>No. of Items: {{itemList.length}}</p>
+            <table class="content-table">
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Quantity</th>
+                  <th>Shipping</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item in itemList">
+                  <td>{{item.title}}</td>
+                  <td>{{item.quantity}}</td>
+                  <td>{{item.shipping}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <h4 class="cost">Total : {{getTotalShipping()}}</h4>
+          <small class="check-btn" (click)="displayChecks">Add check list</small>
+          <button class="confirm-btn" (click)="confirmOrder()">Continue</button>
+        </div >
+      </div>
+      <!--auth section-->
+      <div class="auth-section" *ngSwitchCase="3">
+        <h2>Enter your phone number</h2>
+        <div class="auth-content">
+          <mat-form-field class="input-box">
+            <input matInput #phone />
+          </mat-form-field>
+          <button class="auth-btn" (click)="authUser(phone.value)" >Continue</button>
+        </div>
+      </div>
+
+      <div class="auth-section" *ngSwitchCase="4">
+        <h2>Enter your password</h2>
+        <div class="auth-content">
+          <mat-form-field class="input-box">
+            <input type="password" matInput #password />
+          </mat-form-field>
+          <button class="auth-btn" (click)="login(password.value)">Continue</button>
+        </div>
+      </div>
+
+      <div class="auth-section" *ngSwitchCase="5">
+        <h2>Oops! Account does not exist. Fill the form to register</h2>
+        <div class="auth-content">
+          <form  class="register-form" [formGroup]="registerForm">
+            <p mat-label>Fullname</p>
+            <mat-form-field  class="input-box" >
+              <input type="text" matInput required formControlName="userName"/>
+            </mat-form-field>
+      
+            <p mat-label>Email</p>
+            <mat-form-field  class="input-box" >
+              <input type="email" matInput required formControlName="email"/>
+            </mat-form-field>
+            
+            <p mat-label>Phone</p>
+            <mat-form-field  class="input-box" >
+              <span matPrefix>+234 &nbsp;</span>
+              <input type="tel" matInput placeholder="Phone" required formControlName="phone" />
+            </mat-form-field>
+      
+            <p mat-label>Password</p>
+            <mat-form-field class="input-box">
+              <input matInput type="password" required formControlName="password"/>
+            </mat-form-field>
+      
+            <p mat-label>Confirm Password</p>
+            <mat-form-field class="input-box">
+              <input matInput type="password" required formControlName="password2"/>
+            </mat-form-field>
+          </form>
+          <button class="auth-btn" (click)="register()">Continue</button>
+        </div>
+      </div>
+      
+      <!--checkout section-->
+      <div class="checkout-section" *ngSwitchCase="6">
+        <h2><i class="bi bi-wallet"></i>Wallet Balance</h2>
+        <p class="balance">Balance:{{userBalance}} </p>
+        <div *ngIf="isFunded"; else="notFunded">
+          <button (click)="checkout()" class="checkout-btn"  > Pay {{shippingFee}} </button>
+          
+        </div>
+        <ng-template #notFunded>
+          <p>Insufficient Balance</p>
+          <button class="checkout-btn" >Fund Wallet</button>
+        </ng-template>
+      </div> 
+    
+    </div>
+  </ng-container>
+</div>

@@ -1,0 +1,79 @@
+<div class="container">
+    
+  <div class="registerwrapper">
+    <img src="assets/img/radda.png" alt="Logo" (click)="routeHome()">          
+    <form [formGroup]="registerForm">
+      <h4>Sign Up</h4>
+      
+      <mat-form-field
+        appearance="outline"
+        style="display: block; width: 350px"
+      >
+        <mat-label>Fullname</mat-label>
+        <input matInput formControlName="userName"/>
+      </mat-form-field>
+      <mat-form-field
+        appearance="outline"
+        style="display: block; width: 350px"
+      >
+        <mat-label>Email</mat-label>
+        <input type="email" matInput formControlName="email"/>
+      </mat-form-field>
+      <mat-form-field
+        appearance="outline"
+        style="display: block; width: 350px"
+      >
+        <mat-label>Phone number</mat-label>
+        <input matInput formControlName="phone"/>
+      </mat-form-field>
+
+      <mat-form-field
+        appearance="outline"
+        style="display: block; width: 350px"
+      >
+        <mat-label>Password</mat-label>
+        <input matInput type="password" formControlName="password">
+      </mat-form-field>
+      <mat-form-field
+        appearance="outline"
+        style="display: block; width: 350px"
+      >
+        <mat-label>Confirm Password</mat-label>
+        <input matInput type="password" formControlName="password2">
+      </mat-form-field>
+      <mat-form-field
+        appearance="outline"
+        style="display: block; width: 350px"
+      >
+        <mat-label>Business Name</mat-label>
+        <input matInput type="text" formControlName="businessName">
+      </mat-form-field>
+      <mat-form-field
+        appearance="outline"
+        style="display: block; width: 350px"
+      >
+        <mat-label>Business Location</mat-label>
+        <input matInput type="text" formControlName="businessLocation">
+      </mat-form-field>
+
+      <div class="login-option" (click)="registerUser()">
+        <span> Have an account? </span>  <span style="font-weight: 600;padding-left: 5px; cursor: pointer;"> Log In</span>
+      </div>
+
+      <div>
+        <button
+          mat-raised-button
+          [class.spinner]="loadingBtn"
+          (click)="registerUser()"
+          [disabled]="loadingBtn"
+          style="background: #c257f5;margin-top: 10px; border-radius: 8px; width: 100%"
+        >
+          Sign Up
+        </button>
+      </div>
+    </form>
+
+
+    
+  </div>
+</div>
