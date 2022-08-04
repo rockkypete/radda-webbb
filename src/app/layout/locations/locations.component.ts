@@ -17,6 +17,8 @@ export class LocationsComponent implements OnInit {
   @ViewChild("pickup") pickupPlacesRef : GooglePlaceDirective;
   @ViewChild("dropoff") dropoffPlaceRef  : GooglePlaceDirective;
 
+  pickup:string
+  delivery:string
   routingForm: FormGroup;
   shippingFee: number;
 
@@ -36,29 +38,30 @@ export class LocationsComponent implements OnInit {
 
 
   constructor(
-    private fb:FormBuilder, private gs: GoogleService, private apiService:ApiService,
-    private dialogRef: MatDialogRef<LocationsComponent>, @Inject(MAT_DIALOG_DATA) private data:{pickup:string, delivery:string}
+    private dialogRef: MatDialogRef<LocationsComponent>, @Inject(MAT_DIALOG_DATA) private data:{pickup:string, delivery:string},
+    private apiService:ApiService
   ) { }
 
   ngOnInit(): void {
-    this.shippingFee = 0;
-    this.routingForm = this.fb.group({
-      pickupAddress: [this.data.pickup, Validators.required],
-      deliveryAddress: [this.data.delivery, Validators.required],
-    })
+    this.pickup = this.data.pickup;
+    this.delivery = this.data.delivery
+
   }
 
-  formatPickupAddress(address:Address){
+  formatPickupAddress(address:any){
     this.pickup_meta_data.address = address.formatted_address;
     this.pickup_meta_data.latitude = address.geometry.location.lat();
     this.pickup_meta_data.longitude = address.geometry.location.lng();
   }
-  formatDeliveryAddress(address:Address){
+
+  formatDeliveryAddress(address:any){
     this.delivery_meta_data.address = address.formatted_address;
     this.delivery_meta_data.latitude = address.geometry.location.lat();
     this.delivery_meta_data.longitude = address.geometry.location.lng();
   }
 
+
+  
   //getting the distance between the locations
   getTravelDistance(){
 

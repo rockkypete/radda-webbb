@@ -1,44 +1,25 @@
-<div class="container">
-    
-  <div class="loginwrapper">
-    <img src="assets/img/radda.png" alt="Logo" (click)="routeHome()">          
-    <form [formGroup]="loginForm">
-      <h4>Sign In</h4>
-      
-      <mat-form-field
-        appearance="outline"
-        style="display: block; width: 350px"
-      >
-        <mat-label>Phone number</mat-label>
-        <input matInput formControlName="phone"/>
-      </mat-form-field>
+<div class="login-wrapper">
+  <div class="form-wrapper">
+      <img src="assets/img/radda.png" alt="Logo" (click)="routeHome()">          
+      <h2>Sign In</h2>
+      <div class="form-control">
+        <p>Phone number</p>
+        <input type="text"  #phone/>
 
-      <mat-form-field
-        appearance="outline"
-        style="display: block; width: 350px"
-      >
-        <mat-label>Password</mat-label>
-        <input matInput type="password" formControlName="password">
-      </mat-form-field>
-
-      <div class="signup-option" (click)="signUP()">
-        <span> Don’t have an account? </span>  <span style="font-weight: 600;padding-left: 5px; cursor: pointer;"> Sign up</span>
+        <p>Password</p>
+        <input type="text" #password/>
       </div>
 
-      <div>
-        <button
-          mat-raised-button
-          [class.spinner]="loadingBtn"
-          (click)="login()"
-          [disabled]="loadingBtn"
-          style="background: #c257f5;margin-top: 10px; border-radius: 8px; width: 100%"
-        >
-          Login
-        </button>
-      </div>
-    </form>
+      <p class="options" (click)="signUP()">
+        Become a Partner
+        <span class="link">
+          Sign up
+        </span>
+      </p>
+      <button (click)="login(phone.value, password.value)" >
+        <div class="spinner" *ngIf="loading"></div>
+        Login
+      </button>
+    </div>
 
-
-    
-  </div>
-</div>
+</div> 

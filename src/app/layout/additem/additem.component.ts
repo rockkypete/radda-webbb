@@ -6,8 +6,8 @@ import { Address } from 'ngx-google-places-autocomplete/objects/address';
 import { ApiService } from 'src/app/share/appServices/api.service';
 import { GoogleService } from 'src/app/share/appServices/google.service';
 
-import { itemLocation } from 'src/app/share/model';
-import { item } from 'src/app/share/model';
+import { ItemLocation } from 'src/app/share/model';
+import { Item } from 'src/app/share/model';
 
 
 @Component({
@@ -23,15 +23,13 @@ export class AdditemComponent implements OnInit {
 
 
   currentUser:string;
-  itemList:item[];
-  locations:itemLocation[];
+  item:Item;
+  locations:ItemLocation[];
   checkList:string[];
 
   itemDetailsForm: FormGroup;
-  pickupContactForm: FormGroup;
-  deliveryContactForm: FormGroup;
+  contactForm: FormGroup;
   routingForm: FormGroup;
-  registerForm: FormGroup;
 
   shippingFee: number = 0;
 
@@ -56,12 +54,12 @@ export class AdditemComponent implements OnInit {
 
   constructor(
     private fb:FormBuilder, private gs: GoogleService, private apiService:ApiService,
-    private dialogRef: MatDialogRef<AdditemComponent>, @Inject(MAT_DIALOG_DATA) private data:item
+    private dialogRef: MatDialogRef<AdditemComponent>, @Inject(MAT_DIALOG_DATA) private data:Item
   ) { }
 
 
   ngOnInit(): void {
-    this.itemList.push({} as item);
+    this.item = {} as Item;
     this.imageSrc =  ''
 
     this.itemDetailsForm = this.fb.group({
@@ -76,33 +74,23 @@ export class AdditemComponent implements OnInit {
       deliveryAddress: ['', Validators.required],
     })
 
-    this.pickupContactForm = this.fb.group({
-      contactPhone:['', Validators.required]
+    this.contactForm = this.fb.group({
+      senderPhone:['', Validators.required],
+      receiverPhone:['', Validators.required]
     })
 
-    this.deliveryContactForm = this.fb.group({
-      contactPhone:['', Validators.required]
-    })
-
-    this.registerForm = this.fb.group({
-      userName:['', Validators.required],
-      email:['', Validators.required],
-      phone:['', Validators.required],
-      password:['', Validators.required],
-      password2:['', Validators.required]
-    })
   }
 
-  formatPickupAddress(address:Address){
-    this.itemList[0].locations![0].pickupAddress = address.formatted_address;
-    this.itemList[0].locations![0].pickupLatitude = address.geometry.location.lat();
-    this.itemList[0].locations![0].pickupLongitude = address.geometry.location.lng();
+  formatPickupAddress(address:any){
+    this.item.locations![0].pickupAddress = address.formatted_address;
+    this.item.locations![0].pickupLatitude = address.geometry.location.lat();
+    this.item.locations![0].pickupLongitude = address.geometry.location.lng();
   }
 
-  formatDeliveryAddress(address:Address){
-    this.itemList[0].locations![0].deliveryAddress = address.formatted_address;
-    this.itemList[0].locations![0].deliveryLatitude = address.geometry.location.lat();
-    this.itemList[0].locations![0].deliveryLongitude = address.geometry.location.lng();
+  formatDeliveryAddress(address:any){
+    this.item.locations![0].deliveryAddress = address.formatted_address;
+    this.item.locations![0].deliveryLatitude = address.geometry.location.lat();
+    this.item.locations![0].deliveryLongitude = address.geometry.location.lng();
 
 
   }
@@ -112,8 +100,8 @@ export class AdditemComponent implements OnInit {
 
     const distanceService = new google.maps.DistanceMatrixService();
     
-    const origin = { lat: this.itemList[0].locations![0].pickupLatitude!, lng: this.itemList[0].locations![0].pickupLongitude! };
-    const destination = {lat: this.itemList[0].locations![0].deliveryLatitude!, lng: this.itemList[0].locations![0].deliveryLongitude!};
+    const origin = { lat: this.item.locations![0].pickupLatitude!, lng: this.item.locations![0].pickupLongitude! };
+    const destination = {lat: this.item.locations![0].deliveryLatitude!, lng: this.item.locations![0].deliveryLongitude!};
     
     const request = {
       origins: [origin],
@@ -127,7 +115,7 @@ export class AdditemComponent implements OnInit {
       let distance = response.rows[0].elements[0].distance.value
 
       this.apiService.getCost(distance).subscribe((res:any)=>{
-        this.itemList[0].shipping= res.shippingFee;
+        this.item.shipping= res.shippingFee;
       })
     });
   }
@@ -152,14 +140,14 @@ export class AdditemComponent implements OnInit {
       fd.append('image', selectedFile);
       this.apiService.getImageLink(fd).subscribe(res =>{
         this.imageSrc = (res as {imageUrl:string, imageId:string}).imageUrl;
-        this.itemList[0].imageUrl = (res as {imageUrl:string, imageId:string}).imageUrl;
-        this.itemList[0].imageId = (res as {imageUrl:string, imageId:string}).imageId;
+        this.item.imageUrl = (res as {imageUrl:string, imageId:string}).imageUrl;
+        this.item.imageId = (res as {imageUrl:string, imageId:string}).imageId;
       })
     }
   }
 
   addItem(){
-    const newItem:item = this.itemList[0];
+    const newItem:Item = this.item;
     //close dialog and send item object to delivery component
     if((newItem.locations![0].pickupAddress === undefined || newItem.locations![0].pickupAddress === '' )
      || (newItem.locations![0].deliveryAddress === undefined || newItem.locations![0].deliveryAddress === '')){

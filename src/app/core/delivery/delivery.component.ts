@@ -10,9 +10,9 @@ import { GoogleService } from 'src/app/share/appServices/google.service';
 
 import { AdditemComponent } from 'src/app/layout/additem/additem.component';
 import { ChecklistComponent } from 'src/app/layout/checklist/checklist.component';
-import { itemLocation, request } from 'src/app/share/model';
 import { LocationsComponent } from 'src/app/layout/locations/locations.component';
-import { item } from 'src/app/share/model';
+import { ItemLocation } from 'src/app/share/model';
+import { Item } from 'src/app/share/model';
 
 
 
@@ -35,8 +35,8 @@ export class DeliveryComponent implements OnInit {
   currentUser:string;
   userBalance:number;
   isFunded:boolean;
-  itemList:item[];
-  locations:itemLocation[];
+  itemList:Item[];
+  locations:ItemLocation[];
   checkList:string[];
 
   itemDetailsForm: FormGroup;
@@ -76,8 +76,10 @@ export class DeliveryComponent implements OnInit {
 
   ngOnInit(): void {
     this.step = 1;
-    this.itemList.push({} as item);
+    this.itemList.push({} as Item);
     this.shippingFee = 0;
+    this.userBalance = 2000;
+    this.isFunded = true;
     
     this.imageSrc =  ''
 
@@ -153,6 +155,10 @@ export class DeliveryComponent implements OnInit {
     });
   }
 
+  stepForward(){
+    this.step = this.step + 1;
+  }
+
   //submitting image file to cloudinary for url link
   onImageChange(e:any){
     const reader = new FileReader();
@@ -190,7 +196,7 @@ export class DeliveryComponent implements OnInit {
     this.dialogRef.open(
       AdditemComponent,
       this.dialogConfig
-    ).afterClosed().subscribe((item:item)=>{
+    ).afterClosed().subscribe((item:Item)=>{
       console.log(item)
       this.shippingFee += item.shipping!;
       this.itemList.push(item);

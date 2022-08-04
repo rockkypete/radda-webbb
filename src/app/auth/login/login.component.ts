@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
 
   loginForm:FormGroup;
 
-  loadingBtn: boolean
+  loading: boolean
   dialogConfig: MatDialogConfig;
 
   constructor(private apiService: ApiService,
@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.loadingBtn = false;
+    this.loading = false;
     this.loginForm = this.fb.group({
       phone: ['', Validators.required],
       password:['', Validators.required]
@@ -34,10 +34,10 @@ export class LoginComponent implements OnInit {
 
   
   
-  login(){
+  login(phone:string, password:string){
     let newUser = {
-      phone: this.loginForm.get('phone')!.value,
-      password: this.loginForm.get('password')!.value
+      phone,
+      password,
     }
     this.apiService.login(newUser).subscribe((res:any)=>{
       if(res.success === false){

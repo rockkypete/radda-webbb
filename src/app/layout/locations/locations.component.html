@@ -1,24 +1,26 @@
-
 <div class="wrapper">
   <h4>Delivery Details</h4>   
-  <form class="item-form" [formGroup]="routingForm">
-    <mat-form-field class="input-box">
-      <input type="text" matInput 
-        ngx-google-places-autocomplete
-        #pickup="ngx-places"
-        (onAddressChange)="formatPickupAddress($event)"
-        formControlName="pickupAddress"  required 
-      >
-    </mat-form-field>   
-    <mat-form-field class="input-box">
-      <input type="text" matInput 
-        ngx-google-places-autocomplete
-        #dropoff="ngx-places"
-        (onAddressChange)="formatDeliveryAddress($event)"
-        formControlName="deliveryAddress"  required 
-      >
-    </mat-form-field>
-  </form>
-  <button class="btn" (click)="updateLocation">Submit</button>
+  <div class="route-info" *ngSwitchCase="1">
+    <h2>Enter Pickup and Delivery Locations</h2>  
+            
+    <input type="text"  
+      ngx-google-places-autocomplete
+      #pickup
+      (onAddressChange)="formatPickupAddress($event)"
+      placeholder="Enter pickup" formControlName="pickupAddress"  required 
+    >
+  
+    <br/>         
+  
+    <input type="text" 
+      ngx-google-places-autocomplete
+      #dropoff
+      (onAddressChange)="formatDeliveryAddress($event)"
+      placeholder="Enter delivery address here" formControlName="deliveryAddress"  required 
+    >      
+    
+  </div>
+  
+  <button class="route-btn" >Submit</button>
 
 </div>

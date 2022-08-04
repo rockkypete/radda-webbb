@@ -5,66 +5,59 @@
       <div class="order-section">
         <h4 >Item Details</h4>
         <div class="item-details">
-          <mat-form-field class="input-box">
-            <input  type="text" matInput placeholder="Enter item name" formControlName="title" required>
-          </mat-form-field>  
-          
-          <mat-form-field class="input-box">
-            <input  type="number" matInput placeholder="Quantity" formControlName="quantity" required>
-          </mat-form-field>       
-          
-          <div class="image-info">
-            <img [src]="imageFile" *ngIf="isFile" />
-            <mat-icon class="image-icon" (click)="files.click()">add</mat-icon>
-            Add Image
-            <input type="file" (change)="onImageChange($event)" #files style="display: none"/>
-          </div>            
+          <form [formGroup]="itemDetailsForm">
+            <div>
+              <input  type="text" class="input-box" placeholder="Enter item name" formControlName="title" required>  
+            </div>
+  
+            <div>
+              <input  type="number"  class="input-box" placeholder="Quantity" formControlName="quantity" required>
+            </div>
+              
+            <div class="image-info">
+              <img [src]="imageFile" *ngIf="isFile" />
+              Add Image
+              <input type="file" (change)="onImageChange($event)" #files style="display: none"/>
+            </div>            
+
+          </form>
         </div>
+        
         <!--routes-->
-        <h4>Delivery Details</h4>        
+        <h4>Pickup and Delivery Addresses</h4>        
           <div class="location-details">            
-            <form class="item-form" [formGroup]="routingForm">
-              <div class="address-box">
-                <p class="text-muted">From</p>  
-                <mat-form-field class="input-box">
-                  <input type="text" matInput 
-                    ngx-google-places-autocomplete
-                    #pickup="ngx-places"
-                    (onAddressChange)="formatPickupAddress($event)"
-                    formControlName="pickupAddress"  required 
-                  >
-                </mat-form-field>   
-              </div>
-              <div class="address-box">
-                <p class="text-muted">To</p>
-                <mat-form-field class="input-box">
-                  <input type="text" matInput 
-                    ngx-google-places-autocomplete
-                    #dropoff="ngx-places"
-                    (onAddressChange)="formatDeliveryAddress($event)"
-                    formControlName="deliveryAddress"  required 
-                  >
-                </mat-form-field>
-              </div>
-            </form>                
+          <form class="item-form" [formGroup]="routingForm">
+            <input type="text"  
+              ngx-google-places-autocomplete
+              #pickup
+              (onAddressChange)="formatPickupAddress($event)"
+              placeholder="Enter pickup" formControlName="pickupAddress"  required 
+            >
+          
+            <br/>         
+          
+            <input type="text" 
+              ngx-google-places-autocomplete
+              #dropoff
+              (onAddressChange)="formatDeliveryAddress($event)"
+              placeholder="Enter delivery address here" formControlName="deliveryAddress"  required 
+            >    
+          </form>
+            
           </div>
 
         <!--delivery contacts-->
         <div class="contact-section">
-          <form [formGroup]="pickupContactForm">
+          <form class="item-form" [formGroup]="contactForm">
             <span class="text-muted">SenderPhone</span>
-            <mat-form-field class="input-box">
-              <input type="tel" matInput placeholder="Enter sender phone" formControlName="contactPhone" required>
-            </mat-form-field>
+            <input type="tel" class="input-box" placeholder="Enter sender phone" formControlName="senderPhone" required>
+      
+            <span class="text-muted">Receiver Phone</span>            
+            <input type="tel" class="input-box" placeholder="Enter receiver phone" formControlName="receiverPhone" required>
+          
           </form>
-          <!--receiver Info-->
-          <form [formGroup]="deliveryContactForm">
-            <span class="text-muted">Receiver Phone</span>
-            <mat-form-field class="input-box">
-              <input type="tel" matInput placeholder="Enter receiver phone" formControlName="contactPhone" required>
-            </mat-form-field>
-          </form>
-          <button class="location-btn" (click)="addItem()"><i class="bi bi-plus"></i>Add Location</button>
         </div>
+          
+          <button class="location-btn" (click)="addItem()"><i class="bi bi-plus"></i>Add Item</button>
       </div>
 </div>

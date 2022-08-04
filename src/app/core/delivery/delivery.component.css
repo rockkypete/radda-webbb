@@ -16,29 +16,29 @@
   padding:15px;
   border-radius: 10px;
   width: 85%;
-  height: 600px;
+  height: 650px;
   margin: auto;
 } 
 
 .route-info{
-  display: flex;
-  flex-direction: column;
-  margin-top: 25px;
+  width:65%;
+  margin: 25px auto;
+
 }
 
-.routes, .vehicles, .route-btn, .shipping{
-  margin: 0 auto;
-}
+
 .route-btn{
   width: 392px;
+  margin-left: 30%;
 }
 
-.routes .input-box{
-  width: 55%;
+
+.route-info input{
+  width: 70%;
   height: 40px;
   border: 1px solid #555;
   border-radius: 10px;
-  margin-top: 25px;
+  margin: 25px 15%;
   background-color: #fff;
   color: #000;
 }
@@ -48,7 +48,7 @@
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
-  margin-top: 20px;
+  margin: 20px 30%;
 }
 .vehicles img{
   width: 85px;
@@ -58,13 +58,14 @@
 
 h2, h4{
   text-align: center;
+  color: #BF54F2;
 }
 .shipping{
   width: 392;
   background: none;
   padding: 5px;
-  margin-bottom: 45px;
-  margin-top: 10px;
+  margin: 10px 0 45px 15%;
+  font-size: 1.5rem;
 }
 
 .details{
@@ -101,10 +102,11 @@ h2, h4{
 }
 
 .order-section .item-details .image-info{
-  width: 100px;
+  width: 80px;
   border: 1px solid #555;
   background: none;
   border-radius: 8px;
+  padding: 5px;
 }
 
 .location-details{
@@ -114,18 +116,34 @@ h2, h4{
   margin-bottom: 30px;
 }
 
+.location-details{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 0;
+}
+
 .location-details .address-box{
   width: 100px;
-  height: 100px;
+  height: 95px;
   border: 1px solid #555;
   border-radius: 8px;
   background:none;
+  margin-right: 15px;
+}
+
+.edit-btn{
+  width: 70px;
+  height: 35px;
+  background-color: #BF54F2;
+  border-radius: 8px;
+  border: 1px solid #555;  
 }
 
 .location-btn{
-  width: 120px;
+  width: 160px;
   height: 35px;
-  background: none;
+  background-color: #BF54F2;
   border-radius: 8px;
   border: 1px solid #555;
 }
@@ -149,8 +167,19 @@ h2, h4{
   padding: 5px;
   margin-bottom: 15px;
 }
-.summary .check-option{
+
+.summary table th{
+  padding-right: 15px;
+  font-weight: 550;
+}
+.summary table td{
+  padding-right: 15px;
+}
+
+.summary .check-btn{
   text-align: center;
+  cursor: pointer;
+  margin-bottom: 5px;
 }
 
 
@@ -168,6 +197,9 @@ h2, h4{
   align-items: center;
   margin-top: 25px;
 }
+.auth-section .auth-content{
+  margin-top: 50px;
+}
 .auth-section .auth-content .input-box{
   width: 300px;
   height: 40px;
@@ -177,9 +209,6 @@ h2, h4{
   background-color: #fff;
   color: #000;
    
-}
-.auth-section .auth-content{
-  margin-top: 10px;
 }
 .auth-section .auth-content p{
   margin-bottom: 0px;

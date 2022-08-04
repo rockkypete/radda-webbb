@@ -1,0 +1,27 @@
+wrapper{
+  width: 100%;
+  background-color: #F8F18C;
+  padding:15px;
+}
+.route-info{
+  width:65%;
+  margin: 25px auto;
+
+}
+
+
+.route-btn{
+  width: 392px;
+  margin-left: 30%;
+}
+
+
+.route-info input{
+  width: 70%;
+  height: 40px;
+  border: 1px solid #555;
+  border-radius: 10px;
+  margin: 25px 15%;
+  background-color: #fff;
+  color: #000;
+}

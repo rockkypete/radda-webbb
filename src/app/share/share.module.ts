@@ -31,15 +31,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatDialogModule } from '@angular/material/dialog';
-import { RequestFormComponent } from '../core/request-form/request-form.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { AboutUsComponent } from '../layout/about-us/about-us.component';
-import { FooterComponent } from '../layout/footer/footer.component';
-import { HeaderComponent } from '../layout/header/header.component';
-import { HomeComponent } from '../layout/home/home.component';
-import { MainComponent } from '../layout/main/main.component';
-import { ServicesComponent } from '../layout/services/services.component';
-import { TestimoniesComponent } from '../layout/testimonies/testimonies.component';
 import { MatNativeDateModule } from '@angular/material/core';
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 

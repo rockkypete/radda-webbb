@@ -1,74 +1,93 @@
-/*.container{
-  border-radius: 20px;
-  width: 500px;
-  height: 75%;
-  border: 1px solid black;
-  box-shadow: 0 2px 20px 12px rgb(0 0 0 / 20%);
+.register-wrapper{
+  width:100%;
+  height: 95vh;
+  background-color: #f8f3aa;
   box-sizing: border-box;
-  padding-top: 40px;
-}
-
-.dialog-close {
-  display: flex;
-  justify-content: flex-end;
-}
-*/
-
-.registerwrapper{
-  border-radius: 20px;
   padding-top: 50px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
-
-.registerwrapper img{
-  width: 150px;
+.register-wrapper img{
   margin-bottom: 10px;
+  margin-left:25%
 }
 
-.registerwrapper h4{
+
+
+h2{
   text-align: center;
   font-weight: 500;
+  color: #BF54F2;
+
 }
 
-.login-option{
-  display:flex;
+.form-control{
+  padding: 15px 45px;
+  width: 40%;
+  background-color: #fff;
+  margin: 25px auto;
+}
+
+.form-field{
+  display: flex;
   align-items: center;
-  justify-content: flex-end;
-  margin-bottom: 10px;
-}
-.login-option :nth-child(2){
-  color:#8B72BE;
+  justify-content: center;
 }
 
-
-@keyframes spinner {
-  to {transform: rotate(360deg);}
+.form-control .form-field p{
+  font-size: 1.3rem;
+  margin-bottom: 0;
 }
 
-.spinner:before {
-  content: '';
-  box-sizing: border-box;
-  position: absolute;
-  top: 50%;
-  left: 50%;
+.form-control .form-field input{
+  width: 450px;
+  height: 40px;
+  border-radius: 8px;
+  border:1px solid #777;
+  padding-left: 0.7em;
+  margin-bottom: 20px;
+  display: flex;
+  align-self: center;
+}
+
+.options{
+  text-align: start;
+  margin-left: 35%;
+}
+
+button{
+  width: 140px;
+  border: 0;
+  padding: 10px;
+  margin-left: 45%;
+  outline: none;
+  color: #f2e427;
+  font-size: 18px;
+  background-color: #BF54F2;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.link{
+  text-decoration: none;
+  color: #BF54F2;
+  font-weight: 600;
+  padding-left: 20%;
+  cursor: pointer;
+
+}
+.spinner {
+  border: 5px solid #f3f3f3; /* Light grey */
+  border-top: 5px solid #BF54F2; /* Blue */
+  border-radius: 50%;
+  margin: 0 auto;
   width: 20px;
   height: 20px;
-  margin-top: -10px;
-  margin-left: -10px;
-  border-radius: 50%;
-  border: 2px solid #ffffff;
-  border-top-color: #000000;
-  animation: spinner .8s linear infinite;
+  animation: spin 2s linear infinite;
 }
 
-@media only screen and (max-width: 600px) {
-  .container {
-    width: 0px;
-    min-width: 90vw;
-    min-height: 60vh;
-    margin-top: 50px;
-  }
-  
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

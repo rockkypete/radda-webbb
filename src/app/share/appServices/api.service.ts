@@ -10,10 +10,7 @@ export class ApiService {
   //baseURL :string = 'https://www.raddaapi.com/';
   baseURL :string = 'http://localhost:4000/';
 
-  authHeader:HttpHeaders = new HttpHeaders({
-    "Content-Type": "application/json",
-    "Authorization": `${JSON.parse(localStorage.getItem('user')!).tokenId}`
-  })
+  
   
 
 
@@ -31,12 +28,20 @@ export class ApiService {
 
   //user login
   login(payload:{phone:string, password:string}){
-    return this.http.post(this.baseURL+`v1/auth_service/login`, payload, {headers:this.authHeader})
+    let authHeader:HttpHeaders = new HttpHeaders({
+      "Content-Type": "application/json",
+      "Authorization": `${JSON.parse(localStorage.getItem('user')!).tokenId}`
+    })
+    return this.http.post(this.baseURL+`v1/auth_service/login`, payload, {headers:authHeader})
   }
 
   //create delivery request
   request(payload:any){
-    return this.http.post(this.baseURL+`v1/delivery_service/new_delivery`, payload, {headers:this.authHeader})
+    let authHeader:HttpHeaders = new HttpHeaders({
+      "Content-Type": "application/json",
+      "Authorization": `${JSON.parse(localStorage.getItem('user')!).tokenId}`
+    })
+    return this.http.post(this.baseURL+`v1/delivery_service/new_delivery`, payload, {headers:authHeader})
   }
 
   //compute shipping cost
@@ -51,35 +56,63 @@ export class ApiService {
 
   //get user wallet balance
   getBalance(){
-    return this.http.get(this.baseURL+`v1/payment_service/balance`, {headers:this.authHeader})
+    let authHeader:HttpHeaders = new HttpHeaders({
+      "Content-Type": "application/json",
+      "Authorization": `${JSON.parse(localStorage.getItem('user')!).tokenId}`
+    })
+    return this.http.get(this.baseURL+`v1/payment_service/balance`, {headers:authHeader})
   }
 
   //charge user and create delivey
   checkout(payload:any){        
-    return this.http.post(this.baseURL+`v1/delivery_service/new_delivery`, payload, {headers:this.authHeader} )
+    let authHeader:HttpHeaders = new HttpHeaders({
+      "Content-Type": "application/json",
+      "Authorization": `${JSON.parse(localStorage.getItem('user')!).tokenId}`
+    })
+    return this.http.post(this.baseURL+`v1/delivery_service/new_delivery`, payload, {headers:authHeader} )
   }
 
   //rider onboarding by partner
   onboardRider(payload:{name:string, phone:string}){
-    return this.http.post(this.baseURL+`v1/auth_service/onboarding`, payload, {headers:this.authHeader})
+    let authHeader:HttpHeaders = new HttpHeaders({
+      "Content-Type": "application/json",
+      "Authorization": `${JSON.parse(localStorage.getItem('user')!).tokenId}`
+    })
+    return this.http.post(this.baseURL+`v1/auth_service/onboarding`, payload, {headers:authHeader})
   }
 
   //bank account update
   addBankAccount(payload:any){
-    return this.http.post(this.baseURL+`v1/payment_service/bank`, payload, {headers:this.authHeader})
+    let authHeader:HttpHeaders = new HttpHeaders({
+      "Content-Type": "application/json",
+      "Authorization": `${JSON.parse(localStorage.getItem('user')!).tokenId}`
+    })
+    return this.http.post(this.baseURL+`v1/payment_service/bank`, payload, {headers:authHeader})
   }
 
   //dashboard data aggregation
   aggregateData(){
-    return this.http.get(this.baseURL+`v1/auth_service/data`, {headers:this.authHeader})
+    let authHeader:HttpHeaders = new HttpHeaders({
+      "Content-Type": "application/json",
+      "Authorization": `${JSON.parse(localStorage.getItem('user')!).tokenId}`
+    })
+    return this.http.get(this.baseURL+`v1/auth_service/data`, {headers:authHeader})
   }
   //add funds to wallet
   fundWallet(payload:{amount:string, email:string}){
-    return this.http.post(this.baseURL+`v1/pay`, payload, {headers:this.authHeader})
+    let authHeader:HttpHeaders = new HttpHeaders({
+      "Content-Type": "application/json",
+      "Authorization": `${JSON.parse(localStorage.getItem('user')!).tokenId}`
+    })
+    return this.http.post(this.baseURL+`v1/pay`, payload, {headers:authHeader})
   }
 
   //track delivery
   trackDelivery(payload:string){
-    return this.http.post(this.baseURL+`v1/delivery_service/tracking`, payload, {headers:this.authHeader})
+    let authHeader:HttpHeaders = new HttpHeaders({
+      "Content-Type": "application/json",
+      "Authorization": `${JSON.parse(localStorage.getItem('user')!).tokenId}`
+    })
+    return this.http.post(this.baseURL+`v1/delivery_service/tracking`, payload, {headers:authHeader})
   }
 }

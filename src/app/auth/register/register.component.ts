@@ -15,7 +15,7 @@ export class RegisterComponent implements OnInit {
 
   registerForm:FormGroup;
 
-  loadingBtn: boolean
+  loading: boolean
   dialogConfig: MatDialogConfig;
 
   constructor(private apiService: ApiService,
@@ -25,7 +25,7 @@ export class RegisterComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.loadingBtn = false;
+    this.loading = false;
     this.registerForm = this.fb.group({
       userName: ['', Validators.required],
       email: ['', Validators.required],
@@ -44,7 +44,7 @@ export class RegisterComponent implements OnInit {
   }
 
   registerUser(){
-    this.loadingBtn = true;
+    this.loading = true;
     let newUser = {
       userName: this.registerForm.get('userName')!.value,
       email: this.registerForm.get('email')!.value,
@@ -54,6 +54,7 @@ export class RegisterComponent implements OnInit {
       businessName: this.registerForm.get('businessName')!.value,
       businessLocation: this.registerForm.get('businessLocation')!.value,
     }    
+    
     this.apiService.register(newUser).subscribe((res:any)=>{
       if(res.success === false){
         //alert registration error
@@ -63,7 +64,7 @@ export class RegisterComponent implements OnInit {
         this.router.navigate(['login'])
       }
     })
-    this.loadingBtn = false;
+    this.loading = false;
   }
 
   routeHome(){
